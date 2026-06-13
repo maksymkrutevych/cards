@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Cards</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #0f1419;
+      --card-front: #1a2332;
+      --card-back: #1e2d3d;
+      --accent: #4ecdc4;
+      --text: #e8edf2;
+      --text-muted: #8b9cb3;
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+    }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      background-image:
+        radial-gradient(ellipse at 20% 20%, rgba(78, 205, 196, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(78, 205, 196, 0.05) 0%, transparent 50%);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100dvh;
+      padding: 24px 16px;
+      touch-action: pan-y;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .header h1 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .counter {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .scene {
+      width: min(100%, 380px);
+      height: min(58dvh, 480px);
+      perspective: 1200px;
+      cursor: pointer;
+      touch-action: none;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .card {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.55s cubic-bezier(0.4, 0.2, 0.2, 1);
+      border-radius: 20px;
+    }
+
+    .card.flipped {
+      transform: rotateY(180deg);
+    }
+
+    .card.sliding-left {
+      animation: slideOutLeft 0.28s ease forwards;
+    }
+
+    .card.sliding-right {
+      animation: slideOutRight 0.28s ease forwards;
+    }
+
+    .card.sliding-in-left {
+      animation: slideInLeft 0.28s ease forwards;
+    }
+
+    .card.sliding-in-right {
+      animation: slideInRight 0.28s ease forwards;
+    }
+
+    @keyframes slideOutLeft {
+      to { transform: translateX(-120%) rotateY(0deg); opacity: 0; }
+    }
+
+    @keyframes slideOutRight {
+      to { transform: translateX(120%) rotateY(0deg); opacity: 0; }
+    }
+
+    @keyframes slideInLeft {
+      from { transform: translateX(120%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    @keyframes slideInRight {
+      from { transform: translateX(-120%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    .face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      border-radius: 20px;
+      overflow: hidden;
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .face-front {
+      background: var(--card-front);
+      transform: translateZ(1px);
+    }
+
+    .face-back {
+      background: var(--card-back);
+      transform: rotateY(180deg) translateZ(1px);
+      border-color: rgba(78, 205, 196, 0.2);
+    }
+
+    .sentence {
+      font-size: 1.2rem;
+      line-height: 1.55;
+      font-weight: 400;
+      max-width: 100%;
+      word-wrap: break-word;
+      hyphens: auto;
+    }
+
+    .face-back .sentence {
+      font-size: 1.15rem;
+      color: #d4e8e6;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Comprehension</h1>
+    <p class="counter" id="counter">1 / 30</p>
+  </div>
+
+  <div class="scene" id="scene">
+    <div class="card" id="card">
+      <div class="face face-front">
+        <p class="sentence" id="en"></p>
+      </div>
+      <div class="face face-back">
+        <p class="sentence" id="ua"></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const cards = [
+      {
+        "en": "My comprehension of the article improved after I read it twice.",
+        "ua": "Моє розуміння статті покращилося після того, як я прочитав її двічі."
+      },
+      {
+        "en": "Good reading comprehension is essential for academic success.",
+        "ua": "Хороше розуміння прочитаного є необхідним для академічного успіху."
+      },
+      {
+        "en": "The teacher checked the students' comprehension with a short quiz.",
+        "ua": "Учитель перевірив розуміння учнів за допомогою короткої вікторини."
+      },
+      {
+        "en": "Her comprehension of English has improved significantly this year.",
+        "ua": "Її розуміння англійської мови значно покращилося цього року."
+      },
+      {
+        "en": "The instructions were written clearly to ensure better comprehension.",
+        "ua": "Інструкції були написані чітко, щоб забезпечити краще розуміння."
+      },
+      {
+        "en": "Listening comprehension can be challenging for language learners.",
+        "ua": "Розуміння на слух може бути складним для тих, хто вивчає мову."
+      },
+      {
+        "en": "His comprehension of the problem helped the team find a solution quickly.",
+        "ua": "Його розуміння проблеми допомогло команді швидко знайти рішення."
+      },
+      {
+        "en": "The book is written in simple language for easy comprehension.",
+        "ua": "Книга написана простою мовою для легкого розуміння."
+      },
+      {
+        "en": "Reading every day can improve your comprehension skills.",
+        "ua": "Щоденне читання може покращити ваші навички розуміння."
+      },
+      {
+        "en": "The manager's comprehension of the market trends was impressive.",
+        "ua": "Розуміння менеджером ринкових тенденцій було вражаючим."
+      },
+      {
+        "en": "We tested our comprehension by summarizing the text.",
+        "ua": "Ми перевірили своє розуміння, підсумувавши текст."
+      },
+      {
+        "en": "Her facial expression showed a lack of comprehension.",
+        "ua": "Вираз її обличчя показував відсутність розуміння."
+      },
+      {
+        "en": "Comprehension of cultural differences is important in international business.",
+        "ua": "Розуміння культурних відмінностей важливе в міжнародному бізнесі."
+      },
+      {
+        "en": "The lecture was difficult, but my comprehension improved as it continued.",
+        "ua": "Лекція була складною, але моє розуміння покращувалося в процесі."
+      },
+      {
+        "en": "Strong comprehension skills help people make better decisions.",
+        "ua": "Сильні навички розуміння допомагають людям приймати кращі рішення."
+      },
+      {
+        "en": "The child's reading comprehension is above average for his age.",
+        "ua": "Розуміння прочитаного у дитини вище середнього для її віку."
+      },
+      {
+        "en": "The report requires careful comprehension of financial data.",
+        "ua": "Звіт вимагає уважного розуміння фінансових даних."
+      },
+      {
+        "en": "Comprehension comes with practice and patience.",
+        "ua": "Розуміння приходить із практикою та терпінням."
+      },
+      {
+        "en": "She nodded to show her comprehension of the explanation.",
+        "ua": "Вона кивнула, щоб показати своє розуміння пояснення."
+      },
+      {
+        "en": "The app includes exercises designed to improve comprehension.",
+        "ua": "Додаток містить вправи, розроблені для покращення розуміння."
+      },
+      {
+        "en": "Without proper comprehension, mistakes are more likely to happen.",
+        "ua": "Без належного розуміння помилки трапляються частіше."
+      },
+      {
+        "en": "His comprehension of programming concepts helped him learn React faster.",
+        "ua": "Його розуміння концепцій програмування допомогло йому швидше вивчити React."
+      },
+      {
+        "en": "Reading news articles can enhance your comprehension of current events.",
+        "ua": "Читання новинних статей може покращити ваше розуміння поточних подій."
+      },
+      {
+        "en": "The training program focuses on comprehension rather than memorization.",
+        "ua": "Програма навчання зосереджується на розумінні, а не на запам'ятовуванні."
+      },
+      {
+        "en": "Comprehension of customer needs is key to building a successful product.",
+        "ua": "Розуміння потреб клієнтів є ключем до створення успішного продукту."
+      },
+      {
+        "en": "Her comprehension of the legal document surprised everyone.",
+        "ua": "Її розуміння юридичного документа здивувало всіх."
+      },
+      {
+        "en": "The podcast helped improve my listening comprehension.",
+        "ua": "Подкаст допоміг покращити моє розуміння на слух."
+      },
+      {
+        "en": "Effective communication depends on mutual comprehension.",
+        "ua": "Ефективна комунікація залежить від взаємного розуміння."
+      },
+      {
+        "en": "The scientist's comprehension of complex systems led to a breakthrough.",
+        "ua": "Розуміння науковцем складних систем привело до прориву."
+      },
+      {
+        "en": "Better comprehension often leads to greater confidence.",
+        "ua": "Краще розуміння часто призводить до більшої впевненості."
+      }
+    ];
+
+    let index = 0;
+    let isFlipped = false;
+    let isAnimating = false;
+
+    const cardEl = document.getElementById('card');
+    const sceneEl = document.getElementById('scene');
+    const enEl = document.getElementById('en');
+    const uaEl = document.getElementById('ua');
+    const counterEl = document.getElementById('counter');
+
+    function render() {
+      const item = cards[index];
+      enEl.textContent = item.en;
+      uaEl.textContent = item.ua;
+      counterEl.textContent = `${index + 1} / ${cards.length}`;
+    }
+
+    function flip() {
+      if (isAnimating) return;
+      isFlipped = !isFlipped;
+      cardEl.classList.toggle('flipped', isFlipped);
+    }
+
+    function goTo(newIndex, direction) {
+      if (isAnimating || newIndex < 0 || newIndex >= cards.length || newIndex === index) return;
+
+      isAnimating = true;
+      const outClass = direction === 'next' ? 'sliding-left' : 'sliding-right';
+      const inClass = direction === 'next' ? 'sliding-in-left' : 'sliding-in-right';
+
+      cardEl.classList.remove('flipped');
+      isFlipped = false;
+      cardEl.classList.add(outClass);
+
+      setTimeout(() => {
+        index = newIndex;
+        render();
+        cardEl.classList.remove(outClass);
+        cardEl.classList.add(inClass);
+
+        setTimeout(() => {
+          cardEl.classList.remove(inClass);
+          isAnimating = false;
+        }, 280);
+      }, 280);
+    }
+
+    function next() { goTo(index + 1, 'next'); }
+    function prev() { goTo(index - 1, 'prev'); }
+
+    sceneEl.addEventListener('click', (e) => {
+      if (swipeHandled) {
+        swipeHandled = false;
+        return;
+      }
+      flip();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') next();
+      else if (e.key === 'ArrowLeft') prev();
+      else if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); flip(); }
+    });
+
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let swipeHandled = false;
+
+    sceneEl.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].clientX;
+      touchStartY = e.changedTouches[0].clientY;
+      swipeHandled = false;
+    }, { passive: true });
+
+    sceneEl.addEventListener('touchend', (e) => {
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      const dy = e.changedTouches[0].clientY - touchStartY;
+
+      if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy)) return;
+
+      swipeHandled = true;
+      if (dx > 0) prev();
+      else next();
+    }, { passive: true });
+
+    let mouseDown = false;
+    let mouseStartX = 0;
+
+    sceneEl.addEventListener('mousedown', (e) => {
+      mouseDown = true;
+      mouseStartX = e.clientX;
+    });
+
+    sceneEl.addEventListener('mouseup', (e) => {
+      if (!mouseDown) return;
+      mouseDown = false;
+      const dx = e.clientX - mouseStartX;
+      if (Math.abs(dx) < 50) return;
+      swipeHandled = true;
+      if (dx > 0) prev();
+      else next();
+    });
+
+    render();
+  </script>
+</body>
+</html>
