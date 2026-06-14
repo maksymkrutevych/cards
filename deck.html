@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Cards</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #0f1419;
+      --card-front: #1a2332;
+      --card-back: #1e2d3d;
+      --accent: #4ecdc4;
+      --text: #e8edf2;
+      --text-muted: #8b9cb3;
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+    }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      background-image:
+        radial-gradient(ellipse at 20% 20%, rgba(78, 205, 196, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(78, 205, 196, 0.05) 0%, transparent 50%);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100dvh;
+      padding: 24px 16px;
+      touch-action: pan-y;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .back {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .back:hover {
+      color: var(--accent);
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .header h1 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .counter {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .scene {
+      width: min(100%, 380px);
+      height: min(58dvh, 480px);
+      perspective: 1200px;
+      cursor: pointer;
+      touch-action: none;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .card {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.55s cubic-bezier(0.4, 0.2, 0.2, 1);
+      border-radius: 20px;
+    }
+
+    .card.flipped {
+      transform: rotateY(180deg);
+    }
+
+    .card.sliding-left {
+      animation: slideOutLeft 0.28s ease forwards;
+    }
+
+    .card.sliding-right {
+      animation: slideOutRight 0.28s ease forwards;
+    }
+
+    .card.sliding-in-left {
+      animation: slideInLeft 0.28s ease forwards;
+    }
+
+    .card.sliding-in-right {
+      animation: slideInRight 0.28s ease forwards;
+    }
+
+    @keyframes slideOutLeft {
+      to { transform: translateX(-120%) rotateY(0deg); opacity: 0; }
+    }
+
+    @keyframes slideOutRight {
+      to { transform: translateX(120%) rotateY(0deg); opacity: 0; }
+    }
+
+    @keyframes slideInLeft {
+      from { transform: translateX(120%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    @keyframes slideInRight {
+      from { transform: translateX(-120%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    .face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      border-radius: 20px;
+      overflow: hidden;
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .face-front {
+      background: var(--card-front);
+      transform: translateZ(1px);
+    }
+
+    .face-back {
+      background: var(--card-back);
+      transform: rotateY(180deg) translateZ(1px);
+      border-color: rgba(78, 205, 196, 0.2);
+    }
+
+    .sentence {
+      font-size: 1.2rem;
+      line-height: 1.55;
+      font-weight: 400;
+      max-width: 100%;
+      word-wrap: break-word;
+      hyphens: auto;
+    }
+
+    .face-back .sentence {
+      font-size: 1.15rem;
+      color: #d4e8e6;
+    }
+  </style>
+</head>
+<body>
+  <a class="back" href="index.html">← All phrases</a>
+
+  <div class="header">
+    <h1 id="title">…</h1>
+    <p class="counter" id="counter">…</p>
+  </div>
+
+  <div class="scene" id="scene">
+    <div class="card" id="card">
+      <div class="face face-front">
+        <p class="sentence" id="en"></p>
+      </div>
+      <div class="face face-back">
+        <p class="sentence" id="ua"></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let cards = [];
+    let index = 0;
+    let isFlipped = false;
+    let isAnimating = false;
+
+    const cardEl = document.getElementById('card');
+    const sceneEl = document.getElementById('scene');
+    const enEl = document.getElementById('en');
+    const uaEl = document.getElementById('ua');
+    const counterEl = document.getElementById('counter');
+    const titleEl = document.getElementById('title');
+
+    function deckLabel(id) {
+      const label = id.replace(/_/g, ' ');
+      return label.charAt(0).toUpperCase() + label.slice(1);
+    }
+
+    async function loadDeck() {
+      const deck = new URLSearchParams(location.search).get('deck');
+      if (!deck) {
+        location.href = 'index.html';
+        return;
+      }
+
+      counterEl.textContent = '…';
+
+      try {
+        const response = await fetch(`words/${deck}.json`);
+        if (!response.ok) throw new Error(`words/${deck}.json`);
+        cards = await response.json();
+        titleEl.textContent = deckLabel(deck);
+        document.title = deckLabel(deck);
+        index = 0;
+        isFlipped = false;
+        cardEl.classList.remove('flipped');
+        render();
+      } catch {
+        titleEl.textContent = 'Error';
+        enEl.textContent = `Could not load words/${deck}.json`;
+        uaEl.textContent = '';
+        counterEl.textContent = '';
+      }
+    }
+
+    function render() {
+      if (!cards.length) return;
+      const item = cards[index];
+      enEl.textContent = item.en;
+      uaEl.textContent = item.ua;
+      counterEl.textContent = `${index + 1} / ${cards.length}`;
+    }
+
+    function flip() {
+      if (isAnimating) return;
+      isFlipped = !isFlipped;
+      cardEl.classList.toggle('flipped', isFlipped);
+    }
+
+    function goTo(newIndex, direction) {
+      if (isAnimating || newIndex < 0 || newIndex >= cards.length || newIndex === index) return;
+
+      isAnimating = true;
+      const outClass = direction === 'next' ? 'sliding-left' : 'sliding-right';
+      const inClass = direction === 'next' ? 'sliding-in-left' : 'sliding-in-right';
+
+      cardEl.classList.remove('flipped');
+      isFlipped = false;
+      cardEl.classList.add(outClass);
+
+      setTimeout(() => {
+        index = newIndex;
+        render();
+        cardEl.classList.remove(outClass);
+        cardEl.classList.add(inClass);
+
+        setTimeout(() => {
+          cardEl.classList.remove(inClass);
+          isAnimating = false;
+        }, 280);
+      }, 280);
+    }
+
+    function next() { goTo(index + 1, 'next'); }
+    function prev() { goTo(index - 1, 'prev'); }
+
+    sceneEl.addEventListener('click', (e) => {
+      if (swipeHandled) {
+        swipeHandled = false;
+        return;
+      }
+      flip();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') next();
+      else if (e.key === 'ArrowLeft') prev();
+      else if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); flip(); }
+    });
+
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let swipeHandled = false;
+
+    sceneEl.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].clientX;
+      touchStartY = e.changedTouches[0].clientY;
+      swipeHandled = false;
+    }, { passive: true });
+
+    sceneEl.addEventListener('touchend', (e) => {
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      const dy = e.changedTouches[0].clientY - touchStartY;
+
+      if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy)) return;
+
+      swipeHandled = true;
+      if (dx > 0) prev();
+      else next();
+    }, { passive: true });
+
+    let mouseDown = false;
+    let mouseStartX = 0;
+
+    sceneEl.addEventListener('mousedown', (e) => {
+      mouseDown = true;
+      mouseStartX = e.clientX;
+    });
+
+    sceneEl.addEventListener('mouseup', (e) => {
+      if (!mouseDown) return;
+      mouseDown = false;
+      const dx = e.clientX - mouseStartX;
+      if (Math.abs(dx) < 50) return;
+      swipeHandled = true;
+      if (dx > 0) prev();
+      else next();
+    });
+
+    loadDeck();
+  </script>
+</body>
+</html>
