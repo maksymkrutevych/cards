@@ -241,10 +241,7 @@
       }
     }
 
-    function render() {
-      if (!cards.length) return;
-      const item = cards[index];
-      enEl.textContent = item.en;
+    function render() { if (!cards.length) return; const item = cards[index]; enEl.textContent = item.en;
       uaEl.textContent = item.ua;
       counterEl.textContent = `${index + 1} / ${cards.length}`;
     }
