@@ -1,0 +1,66 @@
+{
+  "projectId": "ua-en-fluency-us",
+  "title": "UA→EN Audio Fluency (American)",
+  "locale": "en-US",
+  "sourceLang": "uk",
+  "targetLang": "en-US",
+  "cefrSpine": ["A2", "B1", "B2"],
+  "entryProfile": "start_a2_seeded",
+  "pairFormat": ["ua", "pause", "en"],
+  "defaultPairsPerLesson": 30,
+  "targetLessonMinutes": 15,
+  "specPath": "docs/curriculum-spec.md",
+  "voicePolicy": {
+    "ua": "ukrainian_neural",
+    "en": "american_neural_ga"
+  },
+  "tracks": {
+    "main": {
+      "id": "main",
+      "kind": "listen_produce",
+      "status": "active",
+      "lessonsDir": "curriculum/lessons/main"
+    },
+    "micro_practice": {
+      "id": "micro_practice",
+      "kind": "quick_recall_10",
+      "status": "available",
+      "unlockAfterMainLessons": 0,
+      "lessonsDir": "curriculum/lessons/micro_practice"
+    },
+    "pronunciation": {
+      "id": "pronunciation",
+      "kind": "minimal_pairs_ga",
+      "status": "planned",
+      "unlockAfterMainLessons": 20,
+      "lessonsDir": "curriculum/lessons/pronunciation"
+    },
+    "dialogues": {
+      "id": "dialogues",
+      "kind": "short_dialogue_shadow",
+      "status": "planned",
+      "unlockAfterMainLessons": 20,
+      "lessonsDir": "curriculum/lessons/dialogues"
+    }
+  },
+  "generation": {
+    "mode": "incremental",
+    "nextMainLessonId": 2,
+    "latestMainLessonId": 1,
+    "batchHint": "Generate one lesson at a time from previous lesson learnerState + docs/curriculum-spec.md + this file"
+  },
+  "budgets": {
+    "newAtomRatio": [0.1, 0.2],
+    "reviewRatio": [0.5, 0.6],
+    "variedReuseRatio": [0.2, 0.25],
+    "contrastRatio": [0.05, 0.1]
+  },
+  "srsStepsLessons": [0, 1, 3, 7, 15, 30, 60],
+  "graduationDefaults": {
+    "minExposures": 10,
+    "minDistinctContexts": 8,
+    "minStrength": 0.75,
+    "minSrsStep": 4
+  },
+  "notes": "Bootstrap: main lesson 0001 created. Continue with lesson 0002 from its generationSeed."
+}

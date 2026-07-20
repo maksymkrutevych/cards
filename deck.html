@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>Cards</title>
+  <title>Lesson</title>
   <style>
     *, *::before, *::after {
       box-sizing: border-box;
@@ -52,6 +52,7 @@
       color: var(--text-muted);
       text-decoration: none;
       transition: color 0.15s;
+      z-index: 2;
     }
 
     .back:hover {
@@ -60,16 +61,18 @@
 
     .header {
       text-align: center;
-      margin-bottom: 28px;
+      margin-bottom: 20px;
+      max-width: min(100%, 420px);
+      padding: 0 8px;
     }
 
     .header h1 {
-      font-size: 1.1rem;
+      font-size: 0.95rem;
       font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+      letter-spacing: 0.04em;
       color: var(--accent);
-      margin-bottom: 6px;
+      margin-bottom: 8px;
+      line-height: 1.35;
     }
 
     .counter {
@@ -77,9 +80,16 @@
       color: var(--text-muted);
     }
 
+    .hint {
+      margin-top: 8px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      opacity: 0.85;
+    }
+
     .scene {
       width: min(100%, 380px);
-      height: min(58dvh, 480px);
+      height: min(56dvh, 480px);
       perspective: 1200px;
       cursor: pointer;
       touch-action: none;
@@ -149,6 +159,7 @@
       align-items: center;
       text-align: center;
       border: 1px solid rgba(255, 255, 255, 0.06);
+      gap: 14px;
     }
 
     .face-front {
@@ -160,6 +171,17 @@
       background: var(--card-back);
       transform: rotateY(180deg) translateZ(1px);
       border-color: rgba(78, 205, 196, 0.2);
+    }
+
+    .lang-tag {
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .face-back .lang-tag {
+      color: var(--accent);
     }
 
     .sentence {
@@ -178,20 +200,23 @@
   </style>
 </head>
 <body>
-  <a class="back" href="index.html">← All phrases</a>
+  <a class="back" href="index.html">← Lessons</a>
 
   <div class="header">
     <h1 id="title">…</h1>
     <p class="counter" id="counter">…</p>
+    <p class="hint">Tap to flip · Swipe or ← → to move · Front UA, back EN</p>
   </div>
 
   <div class="scene" id="scene">
     <div class="card" id="card">
       <div class="face face-front">
-        <p class="sentence" id="en"></p>
+        <span class="lang-tag">Ukrainian</span>
+        <p class="sentence" id="ua"></p>
       </div>
       <div class="face face-back">
-        <p class="sentence" id="ua"></p>
+        <span class="lang-tag">English · US</span>
+        <p class="sentence" id="en"></p>
       </div>
     </div>
   </div>
@@ -201,6 +226,7 @@
     let index = 0;
     let isFlipped = false;
     let isAnimating = false;
+    let swipeHandled = false;
 
     const cardEl = document.getElementById('card');
     const sceneEl = document.getElementById('scene');
@@ -209,40 +235,55 @@
     const counterEl = document.getElementById('counter');
     const titleEl = document.getElementById('title');
 
-    function deckLabel(id) {
-      const label = id.replace(/_/g, ' ');
-      return label.charAt(0).toUpperCase() + label.slice(1);
+    function padLessonId(id) {
+      const n = Number(id);
+      if (Number.isFinite(n) && String(id).length < 4) {
+        return String(n).padStart(4, '0');
+      }
+      return String(id);
     }
 
-    async function loadDeck() {
-      const deck = new URLSearchParams(location.search).get('deck');
-      if (!deck) {
+    async function loadLesson() {
+      const params = new URLSearchParams(location.search);
+      const track = params.get('track') || 'main';
+      const rawLesson = params.get('lesson');
+
+      if (!rawLesson) {
         location.href = 'index.html';
         return;
       }
 
+      const lessonId = padLessonId(rawLesson);
       counterEl.textContent = '…';
 
       try {
-        const response = await fetch(`words/${deck}.json`);
-        if (!response.ok) throw new Error(`words/${deck}.json`);
-        cards = await response.json();
-        titleEl.textContent = deckLabel(deck);
-        document.title = deckLabel(deck);
+        const response = await fetch(`curriculum/lessons/${encodeURIComponent(track)}/${encodeURIComponent(lessonId)}.json`);
+        if (!response.ok) throw new Error('lesson');
+        const lesson = await response.json();
+
+        cards = Array.isArray(lesson.pairs) ? lesson.pairs : [];
+        if (!cards.length) throw new Error('empty');
+
+        const label = lesson.title || `Lesson ${lesson.lessonId ?? lessonId}`;
+        titleEl.textContent = label;
+        document.title = label;
         index = 0;
         isFlipped = false;
         cardEl.classList.remove('flipped');
         render();
       } catch {
         titleEl.textContent = 'Error';
-        enEl.textContent = `Could not load words/${deck}.json`;
-        uaEl.textContent = '';
+        uaEl.textContent = `Could not load curriculum/lessons/${track}/${lessonId}.json`;
+        enEl.textContent = '';
         counterEl.textContent = '';
       }
     }
 
-    function render() { if (!cards.length) return; const item = cards[index]; enEl.textContent = item.en;
-      uaEl.textContent = item.ua;
+    function render() {
+      if (!cards.length) return;
+      const item = cards[index];
+      uaEl.textContent = item.ua || '';
+      enEl.textContent = item.en || '';
       counterEl.textContent = `${index + 1} / ${cards.length}`;
     }
 
@@ -279,7 +320,7 @@
     function next() { goTo(index + 1, 'next'); }
     function prev() { goTo(index - 1, 'prev'); }
 
-    sceneEl.addEventListener('click', (e) => {
+    sceneEl.addEventListener('click', () => {
       if (swipeHandled) {
         swipeHandled = false;
         return;
@@ -290,12 +331,14 @@
     document.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowRight') next();
       else if (e.key === 'ArrowLeft') prev();
-      else if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); flip(); }
+      else if (e.key === ' ' || e.key === 'Enter') {
+        e.preventDefault();
+        flip();
+      }
     });
 
     let touchStartX = 0;
     let touchStartY = 0;
-    let swipeHandled = false;
 
     sceneEl.addEventListener('touchstart', (e) => {
       touchStartX = e.changedTouches[0].clientX;
@@ -332,7 +375,7 @@
       else next();
     });
 
-    loadDeck();
+    loadLesson();
   </script>
 </body>
 </html>

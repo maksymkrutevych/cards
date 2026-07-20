@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cards</title>
+  <title>Lessons</title>
   <style>
     *, *::before, *::after {
       box-sizing: border-box;
@@ -31,18 +31,28 @@
     }
 
     .container {
-      width: min(100%, 420px);
+      width: min(100%, 480px);
       margin: 0 auto;
     }
 
-    h1 {
-      font-size: 1.1rem;
+    .brand {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .brand h1 {
+      font-size: 1.05rem;
       font-weight: 600;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--accent);
-      text-align: center;
-      margin-bottom: 32px;
+      margin-bottom: 8px;
+    }
+
+    .brand p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.45;
     }
 
     .list {
@@ -54,19 +64,55 @@
 
     .list a {
       display: block;
-      padding: 18px 22px;
+      padding: 16px 18px;
       background: var(--surface);
       border: 1px solid rgba(255, 255, 255, 0.06);
       border-radius: 14px;
       color: var(--text);
       text-decoration: none;
-      font-size: 1.05rem;
       transition: border-color 0.15s, background 0.15s;
     }
 
     .list a:hover {
       border-color: rgba(78, 205, 196, 0.35);
       background: #1e2d3d;
+    }
+
+    .row-top {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 6px;
+    }
+
+    .lesson-id {
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .meta span {
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .title {
+      font-size: 1rem;
+      line-height: 1.4;
+      font-weight: 500;
     }
 
     .empty {
@@ -78,33 +124,76 @@
 </head>
 <body>
   <div class="container">
-    <h1>Phrases</h1>
+    <header class="brand">
+      <h1 id="project-title">Lessons</h1>
+      <p id="project-sub">UA → EN · American English</p>
+    </header>
     <ul class="list" id="list"></ul>
   </div>
 
   <script>
-    function deckLabel(id) {
-      const label = id.replace(/_/g, ' ');
-      return label.charAt(0).toUpperCase() + label.slice(1);
+    function padLessonId(id) {
+      const n = Number(id);
+      if (Number.isFinite(n) && String(id).length < 4) {
+        return String(n).padStart(4, '0');
+      }
+      return String(id);
     }
 
-    async function loadDecks() {
+    async function loadLessons() {
       const listEl = document.getElementById('list');
+      const titleEl = document.getElementById('project-title');
+      const subEl = document.getElementById('project-sub');
 
       try {
-        const response = await fetch('words/index.json');
-        if (!response.ok) throw new Error();
-        const decks = await response.json();
+        const [projectRes, indexRes] = await Promise.all([
+          fetch('curriculum/project.json'),
+          fetch('curriculum/lessons/main/index.json'),
+        ]);
 
-        listEl.innerHTML = decks.map((id) =>
-          `<li><a href="deck.html?deck=${encodeURIComponent(id)}">${deckLabel(id)}</a></li>`
-        ).join('');
+        if (!indexRes.ok) throw new Error('index');
+
+        if (projectRes.ok) {
+          const project = await projectRes.json();
+          titleEl.textContent = project.title || 'Lessons';
+          subEl.textContent = `${project.sourceLang || 'uk'} → ${project.targetLang || 'en-US'} · main track`;
+          document.title = project.title || 'Lessons';
+        }
+
+        const lessons = await indexRes.json();
+
+        if (!lessons.length) {
+          listEl.innerHTML = '<li class="empty">No lessons yet</li>';
+          return;
+        }
+
+        listEl.innerHTML = lessons.map((lesson) => {
+          const id = padLessonId(lesson.id);
+          const href = `deck.html?track=${encodeURIComponent(lesson.trackId || 'main')}&lesson=${encodeURIComponent(id)}`;
+          const meta = [
+            lesson.cefr && `<span>${lesson.cefr}${lesson.band ? ' · ' + lesson.band : ''}</span>`,
+            lesson.pairsCount != null && `<span>${lesson.pairsCount} pairs</span>`,
+            lesson.targetMinutes != null && `<span>~${lesson.targetMinutes} min</span>`,
+          ].filter(Boolean).join('');
+
+          return `
+            <li>
+              <a href="${href}">
+                <div class="row-top">
+                  <span class="title">${lesson.title || ('Lesson ' + id)}</span>
+                  <span class="lesson-id">#${lesson.lessonId ?? id}</span>
+                </div>
+                <div class="meta">${meta}</div>
+              </a>
+            </li>
+          `;
+        }).join('');
       } catch {
-        listEl.innerHTML = '<li class="empty">Could not load phrase list</li>';
+        listEl.innerHTML = '<li class="empty">Could not load lessons. Serve the folder over HTTP and check curriculum/lessons/main/index.json</li>';
       }
     }
 
-    loadDecks();
+    loadLessons();
   </script>
 </body>
 </html>

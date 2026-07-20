@@ -1,0 +1,807 @@
+{
+  "schemaVersion": 1,
+  "lessonId": 1,
+  "trackId": "main",
+  "kind": "listen_produce",
+  "locale": "en-US",
+  "title": "A2 · Plans, chances, and figuring things out",
+  "sequence": {
+    "index": 1,
+    "prevLessonId": null,
+    "nextLessonId": 2
+  },
+  "timing": {
+    "targetMinutes": 15,
+    "pairsCount": 30,
+    "defaultPauseMs": 3500
+  },
+  "cefr": {
+    "lessonLevel": "A2",
+    "band": "A2.1",
+    "spineProgress": 0.001,
+    "unlockedLevels": ["A2"],
+    "targetExitLevel": "B2"
+  },
+  "pedagogy": {
+    "newAtomRatio": 0.18,
+    "focus": ["be_going_to", "likely", "come_up_with", "struggle", "rather", "run_into"],
+    "contrast": ["will_vs_going_to"],
+    "notes": "Bootstrap A2 lesson. Seeds focus items from existing cards (likely, come_up_with, run_into, struggle, rather). Leaves comprehension/enhance for later bands. Modern American English throughout."
+  },
+  "learnerState": {
+    "asOfLessonId": 1,
+    "cefrEstimated": "A2",
+    "stats": {
+      "lessonsCompletedOnTrack": 1,
+      "totalPairsSeen": 30,
+      "uniqueLemmasKnown": 28,
+      "uniqueChunksKnown": 4,
+      "grammarNodesUnlocked": 6
+    },
+    "lexicon": {
+      "likely": {
+        "kind": "lemma",
+        "cefr": "B1",
+        "status": "learning",
+        "introLessonId": 1,
+        "exposures": 5,
+        "distinctContexts": 4,
+        "lastLessonId": 1,
+        "nextDueLessonId": 2,
+        "strength": 0.28,
+        "srsStep": 1,
+        "contexts": ["be_likely_to_V", "will_likely_V", "it_is_likely_that", "likely_outcome"]
+      },
+      "come_up_with": {
+        "kind": "chunk",
+        "cefr": "B1",
+        "status": "new",
+        "introLessonId": 1,
+        "exposures": 4,
+        "distinctContexts": 3,
+        "lastLessonId": 1,
+        "nextDueLessonId": 2,
+        "strength": 0.18,
+        "srsStep": 0,
+        "contexts": ["come_up_with_idea", "come_up_with_plan", "come_up_with_solution"]
+      },
+      "run_into": {
+        "kind": "chunk",
+        "cefr": "B1",
+        "status": "new",
+        "introLessonId": 1,
+        "exposures": 3,
+        "distinctContexts": 3,
+        "lastLessonId": 1,
+        "nextDueLessonId": 2,
+        "strength": 0.14,
+        "srsStep": 0,
+        "contexts": ["run_into_person", "run_into_traffic", "run_into_problem"]
+      },
+      "struggle": {
+        "kind": "lemma",
+        "cefr": "B1",
+        "status": "learning",
+        "introLessonId": 1,
+        "exposures": 4,
+        "distinctContexts": 3,
+        "lastLessonId": 1,
+        "nextDueLessonId": 2,
+        "strength": 0.2,
+        "srsStep": 0,
+        "contexts": ["struggle_with_N", "struggle_to_V", "be_struggling_to_V"]
+      },
+      "rather": {
+        "kind": "lemma",
+        "cefr": "A2",
+        "status": "learning",
+        "introLessonId": 1,
+        "exposures": 4,
+        "distinctContexts": 3,
+        "lastLessonId": 1,
+        "nextDueLessonId": 2,
+        "strength": 0.22,
+        "srsStep": 0,
+        "contexts": ["would_rather_V", "rather_than_V", "id_rather_not"]
+      },
+      "plan": {
+        "kind": "lemma",
+        "cefr": "A2",
+        "status": "familiar",
+        "introLessonId": 1,
+        "exposures": 6,
+        "distinctContexts": 4,
+        "lastLessonId": 1,
+        "nextDueLessonId": 4,
+        "strength": 0.45,
+        "srsStep": 2,
+        "contexts": ["make_a_plan", "plan_to_V", "change_plans", "weekend_plans"]
+      },
+      "idea": {
+        "kind": "lemma",
+        "cefr": "A1",
+        "status": "familiar",
+        "introLessonId": 1,
+        "exposures": 5,
+        "distinctContexts": 3,
+        "lastLessonId": 1,
+        "nextDueLessonId": 4,
+        "strength": 0.42,
+        "srsStep": 2,
+        "contexts": ["good_idea", "come_up_with_idea", "share_an_idea"]
+      },
+      "meeting": {
+        "kind": "lemma",
+        "cefr": "A2",
+        "status": "learning",
+        "introLessonId": 1,
+        "exposures": 3,
+        "distinctContexts": 2,
+        "lastLessonId": 1,
+        "nextDueLessonId": 2,
+        "strength": 0.2,
+        "srsStep": 1,
+        "contexts": ["have_a_meeting", "meeting_tomorrow"]
+      },
+      "apartment": {
+        "kind": "lemma",
+        "cefr": "A2",
+        "status": "learning",
+        "introLessonId": 1,
+        "exposures": 2,
+        "distinctContexts": 2,
+        "lastLessonId": 1,
+        "nextDueLessonId": 2,
+        "strength": 0.15,
+        "srsStep": 0,
+        "contexts": ["new_apartment", "apartment_building"]
+      },
+      "traffic": {
+        "kind": "lemma",
+        "cefr": "A2",
+        "status": "learning",
+        "introLessonId": 1,
+        "exposures": 2,
+        "distinctContexts": 2,
+        "lastLessonId": 1,
+        "nextDueLessonId": 2,
+        "strength": 0.14,
+        "srsStep": 0,
+        "contexts": ["heavy_traffic", "stuck_in_traffic"]
+      },
+      "comprehension": {
+        "kind": "lemma",
+        "cefr": "B2",
+        "status": "new",
+        "introLessonId": null,
+        "exposures": 0,
+        "distinctContexts": 0,
+        "lastLessonId": null,
+        "nextDueLessonId": null,
+        "strength": 0,
+        "srsStep": 0,
+        "contexts": [],
+        "queuedFromCards": true
+      },
+      "enhance": {
+        "kind": "lemma",
+        "cefr": "B2",
+        "status": "new",
+        "introLessonId": null,
+        "exposures": 0,
+        "distinctContexts": 0,
+        "lastLessonId": null,
+        "nextDueLessonId": null,
+        "strength": 0,
+        "srsStep": 0,
+        "contexts": [],
+        "queuedFromCards": true,
+        "notes": "Card file uses 'enhances'; track lemma as enhance"
+      }
+    },
+    "grammar": {
+      "present_simple": {
+        "status": "familiar",
+        "introLessonId": 1,
+        "exposures": 8,
+        "lastLessonId": 1,
+        "nextDueLessonId": 4,
+        "strength": 0.5,
+        "srsStep": 2,
+        "contrastsSeen": []
+      },
+      "present_continuous": {
+        "status": "learning",
+        "introLessonId": 1,
+        "exposures": 3,
+        "lastLessonId": 1,
+        "nextDueLessonId": 2,
+        "strength": 0.22,
+        "srsStep": 1,
+        "contrastsSeen": []
+      },
+      "past_simple": {
+        "status": "learning",
+        "introLessonId": 1,
+        "exposures": 5,
+        "lastLessonId": 1,
+        "nextDueLessonId": 2,
+        "strength": 0.3,
+        "srsStep": 1,
+        "contrastsSeen": []
+      },
+      "be_going_to": {
+        "status": "learning",
+        "introLessonId": 1,
+        "exposures": 7,
+        "lastLessonId": 1,
+        "nextDueLessonId": 2,
+        "strength": 0.34,
+        "srsStep": 1,
+        "contrastsSeen": ["will_vs_going_to"]
+      },
+      "will_future_basic": {
+        "status": "learning",
+        "introLessonId": 1,
+        "exposures": 5,
+        "lastLessonId": 1,
+        "nextDueLessonId": 2,
+        "strength": 0.28,
+        "srsStep": 1,
+        "contrastsSeen": ["will_vs_going_to"]
+      },
+      "would_rather": {
+        "status": "new",
+        "introLessonId": 1,
+        "exposures": 4,
+        "lastLessonId": 1,
+        "nextDueLessonId": 2,
+        "strength": 0.18,
+        "srsStep": 0,
+        "contrastsSeen": []
+      }
+    },
+    "templatesMastered": [],
+    "templatesSeen": [
+      "T_be_going_to_V",
+      "T_will_V",
+      "T_be_likely_to_V",
+      "T_it_is_likely_that",
+      "T_come_up_with_N",
+      "T_struggle_to_V",
+      "T_would_rather_V",
+      "T_run_into_N"
+    ],
+    "priorityQueue": {
+      "overdue": [],
+      "dueNext": [
+        "likely",
+        "come_up_with",
+        "run_into",
+        "struggle",
+        "rather",
+        "be_going_to",
+        "will_future_basic",
+        "would_rather",
+        "meeting",
+        "apartment",
+        "traffic"
+      ],
+      "weak": ["come_up_with", "run_into", "struggle", "would_rather", "apartment", "traffic"],
+      "readyToGraduate": []
+    }
+  },
+  "unlocks": {
+    "nextMainLessonAllowed": true,
+    "cefrBandAvailable": ["A2"],
+    "sideTracks": {
+      "pronunciation": {
+        "unlocked": false,
+        "reason": "Need 20 main lessons",
+        "progress": "1/20"
+      },
+      "dialogues": {
+        "unlocked": false,
+        "reason": "Need 20 main lessons",
+        "progress": "1/20"
+      },
+      "micro_practice": {
+        "unlocked": true,
+        "kinds": ["quick_recall_10"]
+      }
+    },
+    "suggestedNext": [
+      {
+        "trackId": "main",
+        "action": "generate_next_lesson",
+        "lessonId": 2
+      },
+      {
+        "trackId": "micro_practice",
+        "action": "optional_between_lessons",
+        "kind": "quick_recall_10",
+        "hint": "Pull from priorityQueue.weak / dueNext"
+      }
+    ]
+  },
+  "generationSeed": {
+    "fromLessonId": 1,
+    "locale": "en-US",
+    "cefrAllow": ["A2"],
+    "grammarCeiling": [
+      "present_simple",
+      "present_continuous",
+      "past_simple",
+      "be_going_to",
+      "will_future_basic",
+      "would_rather",
+      "be_likely_to"
+    ],
+    "mustReview": [
+      "likely",
+      "come_up_with",
+      "run_into",
+      "struggle",
+      "rather",
+      "be_going_to",
+      "will_future_basic",
+      "would_rather"
+    ],
+    "mayIntroduce": {
+      "maxNewLemmas": 2,
+      "maxNewChunks": 1,
+      "maxNewGrammar": 0,
+      "preferTopics": ["daily_plans", "work_small_talk", "city_life_us"],
+      "preferCandidates": ["figure_out", "end_up", "apartment", "neighborhood"]
+    },
+    "forbid": {
+      "grammar": [
+        "present_perfect",
+        "third_conditional",
+        "inversion",
+        "past_perfect_continuous",
+        "passive_complex"
+      ],
+      "lexicon": ["comprehension", "enhance"],
+      "register": ["legal", "academic_heavy", "british_defaults"]
+    },
+    "quotas": {
+      "pairs": 30,
+      "newAtomRatio": 0.15,
+      "review": 0.55,
+      "variedReuse": 0.22,
+      "contrast": 0.08
+    },
+    "complexity": {
+      "lessonMean": 0.26,
+      "maxJump": 0.03
+    },
+    "style": {
+      "locale": "en-US",
+      "preferContractions": true,
+      "avoid": ["flat (housing)", "lift (elevator)", "lorry", "holiday (vacation sense)", "whilst"]
+    }
+  },
+  "pairs": [
+    {
+      "id": "main-0001-01",
+      "ua": "Я збираюся залишитися вдома сьогодні ввечері.",
+      "en": "I'm going to stay home tonight.",
+      "pauseMs": 3500,
+      "atoms": {
+        "lexicon": ["plan"],
+        "grammar": ["be_going_to"],
+        "template": "T_be_going_to_V"
+      },
+      "roles": ["new", "review"],
+      "cefr": "A2",
+      "notes": null
+    },
+    {
+      "id": "main-0001-02",
+      "ua": "Ми збираємося орендувати квартиру ближче до роботи.",
+      "en": "We're going to rent an apartment closer to work.",
+      "pauseMs": 3500,
+      "atoms": {
+        "lexicon": ["apartment", "plan"],
+        "grammar": ["be_going_to"],
+        "template": "T_be_going_to_V"
+      },
+      "roles": ["new"],
+      "cefr": "A2",
+      "notes": "US: apartment (not flat)"
+    },
+    {
+      "id": "main-0001-03",
+      "ua": "Вона збирається подзвонити тобі після зустрічі.",
+      "en": "She's going to call you after the meeting.",
+      "pauseMs": 3500,
+      "atoms": {
+        "lexicon": ["meeting"],
+        "grammar": ["be_going_to"],
+        "template": "T_be_going_to_V"
+      },
+      "roles": ["review"],
+      "cefr": "A2",
+      "notes": null
+    },
+    {
+      "id": "main-0001-04",
+      "ua": "Вони збираються змінити плани на вихідні.",
+      "en": "They're going to change their weekend plans.",
+      "pauseMs": 3500,
+      "atoms": {
+        "lexicon": ["plan"],
+        "grammar": ["be_going_to"],
+        "template": "T_be_going_to_V"
+      },
+      "roles": ["varied_reuse"],
+      "cefr": "A2",
+      "notes": null
+    },
+    {
+      "id": "main-0001-05",
+      "ua": "Я тобі допоможу з цим завтра.",
+      "en": "I'll help you with that tomorrow.",
+      "pauseMs": 3200,
+      "atoms": {
+        "lexicon": [],
+        "grammar": ["will_future_basic"],
+        "template": "T_will_V"
+      },
+      "roles": ["contrast"],
+      "cefr": "A2",
+      "notes": "Contrast with going-to plans: offer/decision"
+    },
+    {
+      "id": "main-0001-06",
+      "ua": "Гадаю, буде дощ пізніше.",
+      "en": "I think it'll rain later.",
+      "pauseMs": 3200,
+      "atoms": {
+        "lexicon": [],
+        "grammar": ["will_future_basic"],
+        "template": "T_will_V"
+      },
+      "roles": ["contrast"],
+      "cefr": "A2",
+      "notes": null
+    },
+    {
+      "id": "main-0001-07",
+      "ua": "Ймовірно, сьогодні пізніше піде дощ.",
+      "en": "It's likely to rain later today.",
+      "pauseMs": 3500,
+      "atoms": {
+        "lexicon": ["likely"],
+        "grammar": ["be_likely_to", "will_future_basic"],
+        "template": "T_be_likely_to_V"
+      },
+      "roles": ["new"],
+      "cefr": "A2",
+      "notes": null
+    },
+    {
+      "id": "main-0001-08",
+      "ua": "Вона, ймовірно, отримає підвищення.",
+      "en": "She's likely to get the promotion.",
+      "pauseMs": 3500,
+      "atoms": {
+        "lexicon": ["likely"],
+        "grammar": ["be_likely_to"],
+        "template": "T_be_likely_to_V"
+      },
+      "roles": ["varied_reuse"],
+      "cefr": "A2",
+      "notes": null
+    },
+    {
+      "id": "main-0001-09",
+      "ua": "Зустріч, імовірно, почнеться на кілька хвилин пізніше.",
+      "en": "The meeting will likely start a few minutes late.",
+      "pauseMs": 3800,
+      "atoms": {
+        "lexicon": ["likely", "meeting"],
+        "grammar": ["will_future_basic"],
+        "template": "T_will_likely_V"
+      },
+      "roles": ["varied_reuse"],
+      "cefr": "A2",
+      "notes": null
+    },
+    {
+      "id": "main-0001-10",
+      "ua": "Ймовірно, нам знадобиться більше часу.",
+      "en": "It's likely that we'll need more time.",
+      "pauseMs": 3500,
+      "atoms": {
+        "lexicon": ["likely"],
+        "grammar": ["be_likely_to", "will_future_basic"],
+        "template": "T_it_is_likely_that"
+      },
+      "roles": ["varied_reuse"],
+      "cefr": "A2",
+      "notes": null
+    },
+    {
+      "id": "main-0001-11",
+      "ua": "Ціна, ймовірно, зросте наступного року.",
+      "en": "The price is likely to go up next year.",
+      "pauseMs": 3500,
+      "atoms": {
+        "lexicon": ["likely"],
+        "grammar": ["be_likely_to"],
+        "template": "T_be_likely_to_V"
+      },
+      "roles": ["review"],
+      "cefr": "A2",
+      "notes": "US: go up (natural spoken)"
+    },
+    {
+      "id": "main-0001-12",
+      "ua": "Нам потрібно придумати краще рішення.",
+      "en": "We need to come up with a better solution.",
+      "pauseMs": 3800,
+      "atoms": {
+        "lexicon": ["come_up_with"],
+        "grammar": ["present_simple"],
+        "template": "T_come_up_with_N"
+      },
+      "roles": ["new"],
+      "cefr": "A2",
+      "notes": null
+    },
+    {
+      "id": "main-0001-13",
+      "ua": "Вона придумала чудову ідею для проєкту.",
+      "en": "She came up with a great idea for the project.",
+      "pauseMs": 3800,
+      "atoms": {
+        "lexicon": ["come_up_with", "idea"],
+        "grammar": ["past_simple"],
+        "template": "T_come_up_with_N"
+      },
+      "roles": ["varied_reuse"],
+      "cefr": "A2",
+      "notes": null
+    },
+    {
+      "id": "main-0001-14",
+      "ua": "Ти можеш придумати новий план на завтра?",
+      "en": "Can you come up with a new plan for tomorrow?",
+      "pauseMs": 3800,
+      "atoms": {
+        "lexicon": ["come_up_with", "plan"],
+        "grammar": ["present_simple"],
+        "template": "T_come_up_with_N"
+      },
+      "roles": ["varied_reuse"],
+      "cefr": "A2",
+      "notes": null
+    },
+    {
+      "id": "main-0001-15",
+      "ua": "Вони все ще намагаються придумати назву.",
+      "en": "They're still trying to come up with a name.",
+      "pauseMs": 3800,
+      "atoms": {
+        "lexicon": ["come_up_with"],
+        "grammar": ["present_continuous"],
+        "template": "T_come_up_with_N"
+      },
+      "roles": ["review"],
+      "cefr": "A2",
+      "notes": null
+    },
+    {
+      "id": "main-0001-16",
+      "ua": "Багатьом учням важко з математикою.",
+      "en": "A lot of students struggle with math.",
+      "pauseMs": 3500,
+      "atoms": {
+        "lexicon": ["struggle"],
+        "grammar": ["present_simple"],
+        "template": "T_struggle_with_N"
+      },
+      "roles": ["new"],
+      "cefr": "A2",
+      "notes": "US: math (not maths)"
+    },
+    {
+      "id": "main-0001-17",
+      "ua": "Мені важко прокидатися рано щоранку.",
+      "en": "I struggle to wake up early every morning.",
+      "pauseMs": 3500,
+      "atoms": {
+        "lexicon": ["struggle"],
+        "grammar": ["present_simple"],
+        "template": "T_struggle_to_V"
+      },
+      "roles": ["varied_reuse"],
+      "cefr": "A2",
+      "notes": null
+    },
+    {
+      "id": "main-0001-18",
+      "ua": "Вона насилу знаходила правильні слова.",
+      "en": "She struggled to find the right words.",
+      "pauseMs": 3500,
+      "atoms": {
+        "lexicon": ["struggle"],
+        "grammar": ["past_simple"],
+        "template": "T_struggle_to_V"
+      },
+      "roles": ["varied_reuse"],
+      "cefr": "A2",
+      "notes": null
+    },
+    {
+      "id": "main-0001-19",
+      "ua": "Компанія намагається залишатися конкурентоспроможною.",
+      "en": "The company is struggling to stay competitive.",
+      "pauseMs": 3800,
+      "atoms": {
+        "lexicon": ["struggle"],
+        "grammar": ["present_continuous"],
+        "template": "T_be_struggling_to_V"
+      },
+      "roles": ["review"],
+      "cefr": "A2",
+      "notes": null
+    },
+    {
+      "id": "main-0001-20",
+      "ua": "Я б краще залишився вдома, ніж пішов кудись сьогодні ввечері.",
+      "en": "I'd rather stay home than go out tonight.",
+      "pauseMs": 4000,
+      "atoms": {
+        "lexicon": ["rather"],
+        "grammar": ["would_rather"],
+        "template": "T_would_rather_V"
+      },
+      "roles": ["new"],
+      "cefr": "A2",
+      "notes": null
+    },
+    {
+      "id": "main-0001-21",
+      "ua": "Вона б краще почитала книгу, ніж дивилася телевізор.",
+      "en": "She'd rather read a book than watch TV.",
+      "pauseMs": 3800,
+      "atoms": {
+        "lexicon": ["rather"],
+        "grammar": ["would_rather"],
+        "template": "T_would_rather_V"
+      },
+      "roles": ["varied_reuse"],
+      "cefr": "A2",
+      "notes": null
+    },
+    {
+      "id": "main-0001-22",
+      "ua": "Я б волів зараз не обговорювати цю тему.",
+      "en": "I'd rather not talk about this right now.",
+      "pauseMs": 3500,
+      "atoms": {
+        "lexicon": ["rather"],
+        "grammar": ["would_rather"],
+        "template": "T_id_rather_not"
+      },
+      "roles": ["varied_reuse"],
+      "cefr": "A2",
+      "notes": null
+    },
+    {
+      "id": "main-0001-23",
+      "ua": "Він вирішив піти пішки, а не брати таксі.",
+      "en": "He chose to walk rather than take a cab.",
+      "pauseMs": 3800,
+      "atoms": {
+        "lexicon": ["rather"],
+        "grammar": ["past_simple"],
+        "template": "T_rather_than_V"
+      },
+      "roles": ["review"],
+      "cefr": "A2",
+      "notes": "US: cab / taxi both OK; cab is natural spoken US"
+    },
+    {
+      "id": "main-0001-24",
+      "ua": "Учора я випадково зустрів старого друга в супермаркеті.",
+      "en": "I ran into an old friend at the supermarket yesterday.",
+      "pauseMs": 4000,
+      "atoms": {
+        "lexicon": ["run_into"],
+        "grammar": ["past_simple"],
+        "template": "T_run_into_N"
+      },
+      "roles": ["new"],
+      "cefr": "A2",
+      "notes": null
+    },
+    {
+      "id": "main-0001-25",
+      "ua": "По дорозі на роботу ми потрапили в сильний затор.",
+      "en": "We ran into heavy traffic on the way to work.",
+      "pauseMs": 3800,
+      "atoms": {
+        "lexicon": ["run_into", "traffic"],
+        "grammar": ["past_simple"],
+        "template": "T_run_into_N"
+      },
+      "roles": ["varied_reuse"],
+      "cefr": "A2",
+      "notes": null
+    },
+    {
+      "id": "main-0001-26",
+      "ua": "Вона зіткнулася з технічними проблемами під час встановлення програми.",
+      "en": "She ran into some technical issues while installing the app.",
+      "pauseMs": 4200,
+      "atoms": {
+        "lexicon": ["run_into"],
+        "grammar": ["past_simple"],
+        "template": "T_run_into_N"
+      },
+      "roles": ["varied_reuse"],
+      "cefr": "A2",
+      "notes": "US: app"
+    },
+    {
+      "id": "main-0001-27",
+      "ua": "Я збираюся поділитися цією ідеєю на зустрічі.",
+      "en": "I'm going to share this idea in the meeting.",
+      "pauseMs": 3500,
+      "atoms": {
+        "lexicon": ["idea", "meeting", "plan"],
+        "grammar": ["be_going_to"],
+        "template": "T_be_going_to_V"
+      },
+      "roles": ["review"],
+      "cefr": "A2",
+      "notes": null
+    },
+    {
+      "id": "main-0001-28",
+      "ua": "Ми, ймовірно, застрягнемо в заторі близько п'ятої.",
+      "en": "We're likely to get stuck in traffic around five.",
+      "pauseMs": 3800,
+      "atoms": {
+        "lexicon": ["likely", "traffic"],
+        "grammar": ["be_likely_to"],
+        "template": "T_be_likely_to_V"
+      },
+      "roles": ["review"],
+      "cefr": "A2",
+      "notes": null
+    },
+    {
+      "id": "main-0001-29",
+      "ua": "Вони збираються придумати коротший маршрут.",
+      "en": "They're going to come up with a shorter route.",
+      "pauseMs": 3800,
+      "atoms": {
+        "lexicon": ["come_up_with", "plan"],
+        "grammar": ["be_going_to"],
+        "template": "T_be_going_to_V"
+      },
+      "roles": ["review"],
+      "cefr": "A2",
+      "notes": "Combines going-to + chunk"
+    },
+    {
+      "id": "main-0001-30",
+      "ua": "Я б краще придумав план зараз, ніж чекав до завтра.",
+      "en": "I'd rather come up with a plan now than wait until tomorrow.",
+      "pauseMs": 4200,
+      "atoms": {
+        "lexicon": ["rather", "come_up_with", "plan"],
+        "grammar": ["would_rather"],
+        "template": "T_would_rather_V"
+      },
+      "roles": ["review"],
+      "cefr": "A2",
+      "notes": "Combines rather + come up with"
+    }
+  ]
+}

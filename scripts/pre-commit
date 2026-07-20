@@ -2,9 +2,10 @@
 set -euo pipefail
 
 ROOT="$(git rev-parse --show-toplevel)"
-"$ROOT/scripts/update-words-index.sh"
 
-if ! git diff --quiet -- words/index.json; then
-  git add words/index.json
-  echo "pre-commit: staged words/index.json"
+"$ROOT/scripts/update-lessons-index.sh"
+
+if ! git diff --quiet -- curriculum/lessons/main/index.json 2>/dev/null; then
+  git add curriculum/lessons/main/index.json
+  echo "pre-commit: staged curriculum/lessons/main/index.json"
 fi

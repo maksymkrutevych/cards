@@ -1,0 +1,13 @@
+[
+  {
+    "id": "0001",
+    "lessonId": 1,
+    "title": "A2 · Plans, chances, and figuring things out",
+    "trackId": "main",
+    "locale": "en-US",
+    "cefr": "A2",
+    "band": "A2.1",
+    "pairsCount": 30,
+    "targetMinutes": 15
+  }
+]
