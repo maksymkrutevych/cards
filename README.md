@@ -34,6 +34,7 @@ Controls: tap/click to flip · swipe or ←/→ to change pair · Space/Enter to
 
 ```
 docs/curriculum-spec.md          # source of truth for generation rules
+docs/prompts/generate-next-lesson.md  # operational prompt for lesson N+1
 curriculum/project.json          # project + tracks + generation pointers
 curriculum/lessons/main/0001.json
 curriculum/lessons/main/index.json   # auto-built lesson list for the UI
@@ -72,11 +73,15 @@ The pre-commit hook runs this automatically when installed.
 
 ## Generate the next lesson
 
-Use an agent or script with:
+Use the operational prompt:
+
+**[`docs/prompts/generate-next-lesson.md`](docs/prompts/generate-next-lesson.md)**
+
+It tells an agent/human exactly how to build lesson N+1 from:
 
 1. `docs/curriculum-spec.md`
 2. `curriculum/project.json`
-3. Latest `curriculum/lessons/main/NNNN.json` (`learnerState` + `generationSeed`)
+3. Latest `curriculum/lessons/main/NNNN.json`
 
 Then write `NNNN+1.json`, bump `project.json` generation pointers, and run `update-lessons-index.sh`.
 

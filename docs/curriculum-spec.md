@@ -477,9 +477,13 @@ audio/...                        ← generated later on server
 
 ---
 
-## 14. Agent / generator prompt contract (short)
+## 14. Agent / generator prompt
 
-When asked to generate the next lesson:
+Full operational instructions:
+
+**[`docs/prompts/generate-next-lesson.md`](prompts/generate-next-lesson.md)**
+
+Short contract when asked to generate the next lesson:
 
 1. Read `docs/curriculum-spec.md` and `curriculum/project.json`
 2. Load the latest lesson on the requested track
@@ -488,6 +492,7 @@ When asked to generate the next lesson:
 5. All `en` = modern American English
 6. Do not rewrite past lessons unless explicitly asked
 7. If user asks for a side track, check `unlocks.sideTracks` first
+8. Update `project.json` pointers and run `scripts/update-lessons-index.sh`
 
 ---
 
