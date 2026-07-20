@@ -45,9 +45,9 @@
   },
   "generation": {
     "mode": "incremental",
-    "nextMainLessonId": 2,
-    "latestMainLessonId": 1,
-    "batchHint": "Generate one lesson at a time from previous lesson learnerState + docs/curriculum-spec.md + this file"
+    "nextMainLessonId": 3,
+    "latestMainLessonId": 2,
+    "batchHint": "Generate one lesson at a time from previous lesson learnerState + docs/curriculum-spec.md + docs/prompts/generate-next-lesson.md + this file"
   },
   "budgets": {
     "newAtomRatio": [0.1, 0.2],
@@ -62,5 +62,5 @@
     "minStrength": 0.75,
     "minSrsStep": 4
   },
-  "notes": "Bootstrap: main lesson 0001 created. Continue with lesson 0002 from its generationSeed."
+  "notes": "Latest main lesson: 0002. Continue with 0003 from its generationSeed."
 }

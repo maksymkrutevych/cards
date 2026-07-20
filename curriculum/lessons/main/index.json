@@ -9,5 +9,16 @@
     "band": "A2.1",
     "pairsCount": 30,
     "targetMinutes": 15
+  },
+  {
+    "id": "0002",
+    "lessonId": 2,
+    "title": "A2 · City plans, neighbors, and figuring it out",
+    "trackId": "main",
+    "locale": "en-US",
+    "cefr": "A2",
+    "band": "A2.1",
+    "pairsCount": 30,
+    "targetMinutes": 15
   }
 ]
